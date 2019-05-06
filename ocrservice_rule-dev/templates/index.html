@@ -1,0 +1,31 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="ocr-form">
+    <h3>For general form</h3>
+    <form action="http://localhost:5000/getbyform" enctype=multipart/form-data method=POST>
+        <fieldset id = "list_features">
+            <legend>Danh sách các thuộc tính</legend>
+            <input type="button" value="Thêm thuộc tính" onclick = "add_feature()">
+            <br>
+            {% for fea in model.features %}
+                <input type="text" name="features" id = "features" value = "{{fea}}">
+            {% endfor %}
+        </fieldset>
+        <fieldset>
+            <legend>Danh sách các rule</legend> 
+            <input type="checkbox" name="rules" value="top_rule" {{model.top_rule}}>Top rule
+            <input type="checkbox" name="rules" value="bot_rule" {{model.bot_rule}}>Bottom rule
+            <input type="checkbox" name="rules" value="split_rule" {{model.split_rule}}>Split in two
+        </fieldset>
+        Ngôn ngữ <select name="lang" id="lang">
+            <option value="vie" selected>Việt nam</option>
+            <option value="eng">English</option>
+        </select>
+        <br>
+        <input type=file name="file">
+        <br>
+        <input type="submit" value="Get result">
+    </form>
+</div>
+
+{% endblock %}

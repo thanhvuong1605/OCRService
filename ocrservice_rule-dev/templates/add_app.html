@@ -1,0 +1,27 @@
+{% extends "layout.html" %}
+{% block content%}
+<div class="ocr-form">
+    <form action="http://localhost:5000/apps/create" enctype=multipart/form-data method=POST>
+        <label for="name">Tên app</label>
+        <br>
+        <input type="text" name="name">
+        <fieldset id = "list_features">
+            <legend>Danh sách các thuộc tính</legend>
+            <input type="button" value="Thêm thuộc tính" onclick = "add_feature()">
+            <br>
+        </fieldset>
+        <fieldset>
+            <legend>Danh sách các rule</legend> 
+            <input type="checkbox" name="rules" value="top_rule">Top rule
+            <input type="checkbox" name="rules" value="bot_rule">Bottom rule
+            <input type="checkbox" name="rules" value="split_rule">Split in two
+        </fieldset>
+        Ngôn ngữ <select name="lang" id="lang">
+            <option value="vie" selected>Việt nam</option>
+            <option value="eng">English</option>
+        </select>
+        <br>
+        <input type="submit" value="Thêm">
+    </form>    
+</div>
+{% endblock %}

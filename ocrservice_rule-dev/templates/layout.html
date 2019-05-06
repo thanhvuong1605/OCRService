@@ -1,0 +1,148 @@
+<!DOCTYPE html5>
+<html>
+    <head>
+        <style>
+            *{
+                padding: 0px;
+                margin: 0px;
+                box-sizing: border-box;
+            }
+            body ul{
+                background:#1A237E;
+                padding: 5;
+            }
+            body>header>h1{
+                text-align: center;
+                color: white;
+            }
+            body>form{
+                display: inline-block;
+            }
+            body fieldset{
+                padding: 5;
+            }
+            body>form{
+                padding: 10;
+                border:2px solid black;
+            }
+            body>form input{
+                margin: 7px;
+            }
+            input[type = "text"]{
+                display: block;
+                width: 95%;
+            }
+            .clearfix{
+                overflow: both;
+            }
+            nav>ul>li{
+                display: inline-block;
+            }
+            nav>ul>li>ul>li{
+                display: block;
+            }
+            nav ul ul{
+                position: absolute;
+                display: none;
+            }
+            nav>ul>li:hover ul{
+                display: block;
+            }
+            nav li{
+                min-width: 90px;
+            }
+            nav a, #body-left a{
+                padding:10px 10px;
+                text-decoration: none;
+                color: white;
+                display: inline-block;
+            }
+            #body-left{
+                height: 100%;
+                background:#1A237E;
+            }
+            #body-left li:hover{
+                background-color:#303F9F;                
+            }
+            nav a:hover{
+                background-color:#303F9F;
+            }
+
+            .ocr-form{
+                padding: 10px;
+            }
+            .ocr-form *{
+                margin: 5px;
+            }
+            #body-left>ul>li{
+                color: white;
+                font-size: 20px;
+                color: #eee;
+            }
+            #body-container{
+                display: grid;
+                grid-template-columns: 200px 800px;
+            }
+            input[type = "button"]{
+                min-height: 17px;
+                min-width: 60px;
+            }
+        </style>
+    </head>
+    <body>
+        <header>
+            <nav>
+                <ul>
+                    <li><a href="#">Trang chủ</a></li>
+                    <li><a href="#">Phiên bản</a>
+                        <ul>
+                            <li><a href="#">Community</a></li>
+                            <li><a href="#">Enterprise</a></li>
+                        </ul></li>
+                    <li><a href="/about">Giới thiệu</a></li>
+                    <li style="float:right"><a href="#">Đăng ký</a></li>
+                    <li style="float:right"><a href="#">Đăng nhập</a></li>
+                </ul>
+            </nav>
+        </header>
+        <div id="body-container">
+            <div id="body-left">
+                <ul>
+                    <li>General apps</li>
+                    <ul>
+                        {% for app in model.general_apps %}
+                            <li><a href="/?app_id={{app['app_id']}}">{{app["name"]}}</a></li>
+                        {% endfor %}
+                    </ul>
+                    <li>My apps</li>
+                    <ul>
+                            <li><a href="/apps/add">Thêm mới</a></li>
+                            {% for app in model.user_apps %}
+                            <li><a href="/?app_id={{app['app_id']}}">{{app["name"]}}</a></li>
+                        {% endfor %}
+                    </ul>
+                </ul>
+
+            </div>
+            <div id="body-right">
+                {% block content %}
+                {% endblock %}
+            </div>
+        </div>
+       <script>
+            function add_feature(){
+                var list = document.getElementById("list_features")
+                var node = document.createElement("input")
+                var att1 = document.createAttribute("type")
+                att1.value = "text"
+                var att2 = document.createAttribute("name")
+                att2.value = "features"
+                node.setAttributeNode(att1)
+                node.setAttributeNode(att2)
+                list.appendChild(node)
+            }
+
+
+        </script>
+    </body>
+</html>
