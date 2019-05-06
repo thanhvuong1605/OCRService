@@ -18,6 +18,7 @@ import repository as repo
 from viewmodels.IndexVM import IndexVM
 from viewmodels.AboutVM import AboutVM 
 from viewmodels.CreateAppVM import CreateAppVM
+from viewmodels.ResultVM import ResultVM
 
 app = Flask(__name__)
 
@@ -27,6 +28,7 @@ def get_by_app_id():
 
 @app.route("/getbyform", methods = ["GET", "POST"])
 def get_by_form():
+    
     if "file" not in request.files:
         abort(400)
     conf_val = 0.75
@@ -63,9 +65,10 @@ def get_by_form():
     else:
         blocks = pytesseract.image_to_string(img, lang = lang).split("\n")
         res = Business.get_result(features, blocks, rules, conf_val)
-    json_string = json.dumps(res, ensure_ascii = False)
-    response = Response(json_string, content_type="application/json; charset=utf-8")
-    return response
+    res_str = str(res)
+    model = ResultVM()
+    model.res = res_str
+    return render_template("result.html", model = model)
 
 @app.route("/")
 def index():
@@ -76,6 +79,7 @@ def index():
         model.set_features(app["features"])
         if "rules" in app:
             model.set_rules(app["rules"])
+        model.app_name = app["name"]
     else:
         model.features = []
     return render_template("index.html", model = model)
@@ -99,5 +103,6 @@ def about_us():
     return render_template("about.html", model = AboutVM())
 
 if __name__ == "__main__":
-    app.run(host = "0.0.0.0", port = 5000, debug = True)
+    repo.init_apps()
+    app.run(host = "0.0.0.0", port = 5000, debug = True, use_reloader = True)
     

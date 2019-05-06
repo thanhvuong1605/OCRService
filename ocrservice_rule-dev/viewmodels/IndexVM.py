@@ -6,6 +6,7 @@ class IndexVM(BaseVM):
         self.top_rule = ""
         self.bot_rule = ""
         self.split = ""
+        self.app_name = ""
         super(IndexVM, self).__init__()
     def set_rules(self, rules):
         if rules == None:

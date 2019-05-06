@@ -44,11 +44,11 @@ class StringHelper:
                  ["ƒ", "f"], ["€", "e"], ["#", "H"], ["ä", "a"], ["Ä", "A"], ["ÿ", "y"], ["⁄", "/"]]
         #noises = "ˆ“‹„”`*¿Ï‡'"
         #°
-        f = open("src/replace_table.txt")
+        f = open("replace_table.txt")
         for line in f:
             size = len(line)
             data = data.replace(line[0], line[1])
-        noises = open("src/noisy_chars.txt") 
+        noises = open("noisy_chars.txt") 
         for noise in noises:
             for c in noise:
                 data = data.replace(c, "")

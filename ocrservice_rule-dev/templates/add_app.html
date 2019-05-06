@@ -1,27 +1,30 @@
 {% extends "layout.html" %}
+
 {% block content%}
-<div class="ocr-form">
-    <form action="http://localhost:5000/apps/create" enctype=multipart/form-data method=POST>
-        <label for="name">Tên app</label>
-        <br>
-        <input type="text" name="name">
-        <fieldset id = "list_features">
-            <legend>Danh sách các thuộc tính</legend>
-            <input type="button" value="Thêm thuộc tính" onclick = "add_feature()">
+<div>
+    <form action="/apps/create" enctype=multipart/form-data method=POST>
+        <h3 for="name">Application Name</h3>
+        
+        <div><h5>Input Application Name: </h5><input type="text" name="name"></div>
+        <fieldset id = "list_features" class="scheduler-border">
+                <legend class="scheduler-border">Feature list</legend>
+            <input type="button" class="btn btn-primary btn-sm" value="Add new feature" onclick = "add_feature()">
             <br>
         </fieldset>
-        <fieldset>
-            <legend>Danh sách các rule</legend> 
-            <input type="checkbox" name="rules" value="top_rule">Top rule
-            <input type="checkbox" name="rules" value="bot_rule">Bottom rule
-            <input type="checkbox" name="rules" value="split_rule">Split in two
+        <fieldset class="scheduler-border">
+            <legend class="scheduler-border">Rule list</legend> 
+            <input type="checkbox" name="rules" value="top_rule">  Top rule<br/>
+            <input type="checkbox" name="rules" value="bot_rule">  Bottom rule<br/>
+            <input type="checkbox" name="rules" value="split_rule">  Split in two
         </fieldset>
-        Ngôn ngữ <select name="lang" id="lang">
-            <option value="vie" selected>Việt nam</option>
+        Language <select name="lang" id="lang">
+            <option value="vie" selected>Vietnamese</option>
             <option value="eng">English</option>
         </select>
         <br>
-        <input type="submit" value="Thêm">
+
+        <br>
+        <input type="submit" value="Add" class="btn btn-primary btn-sm">
     </form>    
 </div>
 {% endblock %}

@@ -1,130 +1,91 @@
-<!DOCTYPE html5>
+<!DOCTYPE html>
 <html>
     <head>
-        <style>
-            *{
-                padding: 0px;
-                margin: 0px;
-                box-sizing: border-box;
-            }
-            body ul{
-                background:#1A237E;
-                padding: 5;
-            }
-            body>header>h1{
-                text-align: center;
-                color: white;
-            }
-            body>form{
-                display: inline-block;
-            }
-            body fieldset{
-                padding: 5;
-            }
-            body>form{
-                padding: 10;
-                border:2px solid black;
-            }
-            body>form input{
-                margin: 7px;
-            }
-            input[type = "text"]{
-                display: block;
-                width: 95%;
-            }
-            .clearfix{
-                overflow: both;
-            }
-            nav>ul>li{
-                display: inline-block;
-            }
-            nav>ul>li>ul>li{
-                display: block;
-            }
-            nav ul ul{
-                position: absolute;
-                display: none;
-            }
-            nav>ul>li:hover ul{
-                display: block;
-            }
-            nav li{
-                min-width: 90px;
-            }
-            nav a, #body-left a{
-                padding:10px 10px;
-                text-decoration: none;
-                color: white;
-                display: inline-block;
-            }
-            #body-left{
-                height: 100%;
-                background:#1A237E;
-            }
-            #body-left li:hover{
-                background-color:#303F9F;                
-            }
-            nav a:hover{
-                background-color:#303F9F;
-            }
+    <title>FPT-Software OCR Service</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/bootstrap.min.css')}}">
+    <script src="{{ url_for('static', filename='assets/jquery.min.js')}}"></script>
+    <script src="{{ url_for('static', filename='assets/bootstrap.min.js')}}"></script>
+    <style>
+        .link:hover {
+            font-weight: bold;
+            background: rgba(12,13,14,0.05);
+            color: #0C0D0E;
+            border-right: 3px solid #F48024;
+        }
+        .link:active {
+            font-weight: bold;
+            background: rgba(12,13,14,0.05);
+            color: #0C0D0E;
+            border-right: 3px solid #F48024;
+        }
+        fieldset.scheduler-border {
+            border: 1px groove #ddd !important;
+            padding: 0 1.4em 1.4em 1.4em !important;
+            margin: 0 0 1.5em 0 !important;
+            -webkit-box-shadow:  0px 0px 0px 0px #000;
+                    box-shadow:  0px 0px 0px 0px #000;
+        }
 
-            .ocr-form{
-                padding: 10px;
-            }
-            .ocr-form *{
-                margin: 5px;
-            }
-            #body-left>ul>li{
-                color: white;
-                font-size: 20px;
-                color: #eee;
-            }
-            #body-container{
-                display: grid;
-                grid-template-columns: 200px 800px;
-            }
-            input[type = "button"]{
-                min-height: 17px;
-                min-width: 60px;
+            legend.scheduler-border {
+                font-size: 1.2em !important;
+                font-weight: bold !important;
+                text-align: left !important;
+                width:auto;
+                padding:0 10px;
+                border-bottom:none;
             }
         </style>
     </head>
+
     <body>
-        <header>
-            <nav>
+        <div class="row" style="box-shadow: 0 1px 0 rgba(12,13,14,0.1), 0 1px 6px rgba(59,64,69,0.1);">
+            <!-- <div class="col-sm-10" style="background-color:green;"> -->
+            <div class="col-sm-1"></div>
+            <div class="col-sm-11">
+                <div class="row">
+                    <nav class="navbar navbar-defult" style="background-color:white; margin-bottom: 0px;">
+                        <div class="container-fluid">
+                            <div class="navbar-header" >
+                              <img src="{{ url_for('static', filename='assets/fpt_logo.png')}}" style="max-width:200px" class="navbar-left">
+                              <img src="{{ url_for('static', filename='assets/akaminds.png')}}" style="margin: 10px 10px 0px 20px;max-width:60px" class="navbar-left">
+                              <div class="navbar-brand" style="
+                                    height: 50px;
+                                    padding: 30px 40px;
+                                    font-size: 27px;
+                                    line-height: 20px;
+                                    font-family: Monospace;
+                                    color: #1462BC;">
+                                  OCR Service
+                              </div>
+                            </div>
+        
+                        </div>
+                    </nav>
+                </div>
+          </div>
+        </div>
+        <div>
+            <div class="col-md-3" style="width:20%;height: 100vh;">
                 <ul>
-                    <li><a href="#">Trang chủ</a></li>
-                    <li><a href="#">Phiên bản</a>
-                        <ul>
-                            <li><a href="#">Community</a></li>
-                            <li><a href="#">Enterprise</a></li>
-                        </ul></li>
-                    <li><a href="/about">Giới thiệu</a></li>
-                    <li style="float:right"><a href="#">Đăng ký</a></li>
-                    <li style="float:right"><a href="#">Đăng nhập</a></li>
-                </ul>
-            </nav>
-        </header>
-        <div id="body-container">
-            <div id="body-left">
-                <ul>
-                    <li>General apps</li>
+                    <h4 class='link'><a href="/" style="text-decoration: none; font-family: Monospace;" >General apps</a></h4>
                     <ul>
                         {% for app in model.general_apps %}
-                            <li><a href="/?app_id={{app['app_id']}}">{{app["name"]}}</a></li>
+                            <li><a href="/?app_id={{app['app_id']}}" >{{app["name"]}}</a></li>
                         {% endfor %}
                     </ul>
-                    <li>My apps</li>
+                    <h4 class='link'><a href="/apps/add" style="text-decoration: none;font-family: Monospace;"  >Add new apps</a></h4>
                     <ul>
-                            <li><a href="/apps/add">Thêm mới</a></li>
+                            <!--<li><a href="/apps/add" style="text-decoration: none">Add new app</a></li>-->
                             {% for app in model.user_apps %}
-                            <li><a href="/?app_id={{app['app_id']}}">{{app["name"]}}</a></li>
+                            <li class='link'><a href="/?app_id={{app['app_id']}}" style="text-decoration: none; font-family: Monospace;" >{{app["name"]}}</a></li>
                         {% endfor %}
                     </ul>
                 </ul>
 
             </div>
-            <div id="body-right">
+            <div class="col-sm-9" style='box-shadow: -1px 0px 0px 0px rgba(59,64,69,0.1);width:80%;height: 100vh'>
                 {% block content %}
                 {% endblock %}
             </div>
@@ -137,8 +98,12 @@
                 att1.value = "text"
                 var att2 = document.createAttribute("name")
                 att2.value = "features"
+                var att3 = document.createAttribute("style")
+                att3.value = "display: block;"
+
                 node.setAttributeNode(att1)
                 node.setAttributeNode(att2)
+                node.setAttributeNode(att3)
                 list.appendChild(node)
             }
 

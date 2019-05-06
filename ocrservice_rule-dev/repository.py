@@ -1,12 +1,14 @@
-import pymongo
+from pymongo import MongoClient
 import uuid
 import datetime
 from bson.objectid import ObjectId
 
 
 def get_db_manager():
-    return pymongo.MongoClient("mongodb://localhost:27017")["app_rules"]
-    
+    client = MongoClient("localhost:27017")
+    db = client["app_rules"]
+    return db
+
 def insert(app):
     now = datetime.datetime.now()
     now = now.strftime("%d/%m/%Y")
@@ -50,12 +52,17 @@ def init_apps():
             "rules": ["split_rule", "bot_rule"],
             "type_id": "0"
             }
+    app4 = {"name": "Giấy hẹn", 
+        "features": ["Biển kiểm soát","Nhãn hiệu","Số loại","Số máy","Số khung","Chủ sở hữu",'Địa chỉ'],
+        "type_id": "0"
+            }
 
     remove_all()
 
     insert(app1)
     insert(app2)
     insert(app3)
+    insert(app4)
 
 def get_general_apps():
     db = get_db_manager()
@@ -86,4 +93,6 @@ def add_app(app):
     app["app_id"] = str(uuid.uuid4())
     app["type_id"] = "1"
     app_db.insert_one(app)
+
+
 
